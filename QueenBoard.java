@@ -29,7 +29,13 @@ public class QueenBoard{
   *excludes the character up to the *)
   */
   public String toString(){
-    return "";
+    String output = "";
+    for(int r = 0; r < board.length; r++){
+      for(int c = 0; c < board[r].length; c++){
+        output += board[r][c];
+      }
+    }
+    return output;
   }
 
 

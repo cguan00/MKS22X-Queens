@@ -1,7 +1,9 @@
 public class QueenBoard{
   private int[][]board;
 
-  public QueenBoard(int size){}
+  public QueenBoard(int size){
+    board = new int[size][];
+  }
 
   private boolean addQueen(int r, int c){
     return true;

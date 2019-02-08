@@ -2,7 +2,13 @@ public class QueenBoard{
   private int[][]board;
 
   public QueenBoard(int size){
-    board = new int[size][];
+    board = new int[size][size];
+    for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+        board[row][col] = 0;
+      }
+    }
+    board[0][0] = -1;
   }
 
   private boolean addQueen(int r, int c){
@@ -30,10 +36,17 @@ public class QueenBoard{
   */
   public String toString(){
     String output = "";
-    for(int r = 0; r < board.length; r++){
-      for(int c = 0; c < board[r].length; c++){
-        output += board[r][c];
+    for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+        if(board[row][col] == 0){
+          output += "_";
+        }
+        if(board[row][col] == -1){
+          output += "Q";
+        }
+        output += " ";
       }
+      output += "\n";
     }
     return output;
   }

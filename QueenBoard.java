@@ -5,18 +5,32 @@ public class QueenBoard{
     board = new int[size][size];
     for(int row = 0; row < board.length; row++){
       for(int col = 0; col < board[row].length; col++){
-        board[row][col] = 0;
+        board[row][col] = 0;//fill the board up with 0's because it's empty
       }
     }
-    board[0][0] = -1;
+    // board[0][0] = -1;//-1 represents the Queen. place Queen in upper left hand box
+    addQueen(0,0);
   }
 
   private boolean addQueen(int r, int c){
+    board[r][c] = -1;//place the Queen down. Queen represented by -1
+
+    //check boxed horizontally to the right
+    for(int col = c; col < board[r].length; col++){
+      board[r][col] += 1;
+    }
+
+    for(int row1 = r; row1 < board.length; row1++){
+      for(int col1 = c; col1 < board[row1].length; col1++){
+        board[row1][col1] += 1;
+      }
+    }
     return true;
   }
 
 
   private boolean removeQueen(int r, int c){
+    board[r][c] = 0;
     return true;
   }
 
@@ -43,6 +57,9 @@ public class QueenBoard{
         }
         if(board[row][col] == -1){
           output += "Q";
+        }
+        if(board[row][col] > 0){
+          output += board[row][col];
         }
         output += " ";
       }

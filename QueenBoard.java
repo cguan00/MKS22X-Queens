@@ -7,6 +7,9 @@ public class QueenBoard{
   }
 
   public boolean addQueen(int r, int c){
+    if(board[r][c] != 0){
+      return false;//cannot add a queen to a threatened square or a square that already contains a queen
+    }
     board[r][c] = -1;//queen represented by -1
     for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] += 1;//squares to the right are threatened, add 1
@@ -23,6 +26,9 @@ public class QueenBoard{
   }
 
   public boolean removeQueen(int r, int c){
+    if(board[r][c] != -1){
+      return false;//cannot remove a queen from a square that does not contain a queen
+    }
     board[r][c] = 0;//remove the queen. square is now empty
     for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] -= 1;//squares to the right are no longer threatened by removed queen, subtract 1

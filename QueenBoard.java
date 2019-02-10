@@ -2,11 +2,10 @@ public class QueenBoard{
   private int[][]board;
 
   public QueenBoard(int size){
-    board = new int[size][size];
-    // addQueen(0,0);
+    board = new int[size][size];//board is represented by 2D array
   }
 
-  public boolean addQueen(int r, int c){
+  private boolean addQueen(int r, int c){
     if(board[r][c] != 0){
       return false;//cannot add a queen to a threatened square or a square that already contains a queen
     }
@@ -25,7 +24,7 @@ public class QueenBoard{
     return true;
   }
 
-  public boolean removeQueen(int r, int c){
+  private boolean removeQueen(int r, int c){
     if(board[r][c] != -1){
       return false;//cannot remove a queen from a square that does not contain a queen
     }
@@ -65,11 +64,7 @@ public class QueenBoard{
         if(board[row][col] == -1){
           output += "Q";
         } else{
-          if(board[row][col] > 0){
-            output += board[row][col];
-          }else{
-            output += "_";
-          }
+          output += "_";
         }
         // output += board[row][col];
         output += " ";
@@ -90,7 +85,14 @@ public class QueenBoard{
     return true;
   }
 
-
+  //fills the board with all 0's
+  public void clear(){
+    for (int r = 0; r < board.length; r++){
+      for (int c = 0; c < board[r].length; c++){
+        board[r][c] = 0;
+      }
+    }
+  }
 
   /**
   *@return false when the board is not solveable and leaves the board filled with zeros;
@@ -129,9 +131,28 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return 0;
+    if(!(isEmpty())){
+      throw new IllegalStateException();
+    }
+    int count= countHelper(0,0);
+    clear();//clear board. board is filled with all 0's
+    return count;
   }
 
+  public int countHelper(int r, int c){
+    if(c >= board.length){
+      return 1;//made it to end of board. one solution
+    }
+    int count = 0;
+    while (r < board.length){
+      if(addQueen(r, c)){//if you added a queen
+        count += countHelper(0, c + 1);
+        removeQueen(r,c);//removes queen after recursive call
+      }
+      r++;
+    }
+    return count;//after every position has been tried
+  }
 
 
 }

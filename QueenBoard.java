@@ -11,8 +11,8 @@ public class QueenBoard{
       return false;//cannot add a queen to a threatened square or a square that already contains a queen
     }
     board[r][c] = -1;//queen represented by -1
-    for (int i = c + 1; i < board.length; i++){//only need one for loop to loop through the possible moves
-      board[r][c + i] += 1;//squares to the right are threatened, add 1
+    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
+      board[r][c + i] += 1;//squares to the right are threatened
 
       if (r - i >= 0){//prevent exception, will not go out of bounds
         board[r - i][c + i] += 1;//squares diagonally to the upper left are threatened, add 1
@@ -30,7 +30,7 @@ public class QueenBoard{
       return false;//cannot remove a queen from a square that does not contain a queen
     }
     board[r][c] = 0;//remove the queen. square is now empty
-    for (int i = c + 1; i < board.length; i++){//only need one for loop to loop through the possible moves
+    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] -= 1;//squares to the right are no longer threatened by removed queen, subtract 1
 
       if (r - i >= 0){//prevent exception, will not go out of bounds
@@ -87,6 +87,7 @@ public class QueenBoard{
         }
       }
     }
+    return true;
   }
 
 
@@ -103,8 +104,25 @@ public class QueenBoard{
     if(!(isEmpty())){
       throw new IllegalStateException();
     }
-    return true;
+    return solveHelper(0,0);//call helper method
   }
+
+  public boolean solveHelper(int r, int c){
+    if (c >= board.length){
+      return true;//base case. reached end of board
+    }
+    while (r < board.length){//loop through the rows
+      if(addQueen(r,c)){//if queen can be added
+        if(solveHelper(0, c + 1)){
+          return true;//try adding to next column
+        }
+        removeQueen(r,c);//backtracking: if cannot add to next column, remove queen and try again
+      }
+      r++;//trying again (trying next row)
+    }
+    return false;//board cannot be solved if you looped through every row and it doesn't work
+  }
+
 
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's

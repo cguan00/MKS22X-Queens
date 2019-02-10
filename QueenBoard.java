@@ -11,7 +11,7 @@ public class QueenBoard{
       return false;//cannot add a queen to a threatened square or a square that already contains a queen
     }
     board[r][c] = -1;//queen represented by -1
-    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
+    for (int i = c + 1; i < board.length; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] += 1;//squares to the right are threatened, add 1
 
       if (r - i >= 0){//prevent exception, will not go out of bounds
@@ -30,7 +30,7 @@ public class QueenBoard{
       return false;//cannot remove a queen from a square that does not contain a queen
     }
     board[r][c] = 0;//remove the queen. square is now empty
-    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
+    for (int i = c + 1; i < board.length; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] -= 1;//squares to the right are no longer threatened by removed queen, subtract 1
 
       if (r - i >= 0){//prevent exception, will not go out of bounds
@@ -90,6 +90,11 @@ public class QueenBoard{
 
   */
   public boolean solve(){
+    for (int i = 0; i < board.length; i++){
+      for (int j = 0; j < board.length; j++){
+        if (board[i][j] != 0) throw new IllegalStateException();
+      }
+    }
     return true;
   }
 

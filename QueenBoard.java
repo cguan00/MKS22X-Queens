@@ -79,6 +79,16 @@ public class QueenBoard{
     return output;
   }
 
+  public boolean isEmpty(){
+    for (int r = 0; r < board.length; r++){
+      for (int c = 0; c < board[r].length; c++){
+        if (board[r][c] != 0){
+          return false;
+        }
+      }
+    }
+  }
+
 
 
   /**
@@ -90,12 +100,8 @@ public class QueenBoard{
 
   */
   public boolean solve(){
-    for (int i = 0; i < board.length; i++){
-      for (int j = 0; j < board.length; j++){
-        if (board[i][j] != 0){
-          throw new IllegalStateException();
-        }
-      }
+    if(!(isEmpty())){
+      throw new IllegalStateException();
     }
     return true;
   }

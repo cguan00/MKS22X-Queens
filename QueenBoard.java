@@ -3,10 +3,10 @@ public class QueenBoard{
 
   public QueenBoard(int size){
     board = new int[size][size];
-    addQueen(0,0);
+    // addQueen(0,0);
   }
 
-  private boolean addQueen(int r, int c){
+  public boolean addQueen(int r, int c){
     board[r][c] = -1;//queen represented by -1
     for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
       board[r][c + i] += 1;//squares to the right are threatened

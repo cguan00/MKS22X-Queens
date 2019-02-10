@@ -5,5 +5,7 @@ public class Driver{
     System.out.println(board);
     board.addQueen(1,0);
     System.out.println(board);
+    board.removeQueen(1,0);
+    System.out.println(board);
   }
 }

@@ -15,14 +15,22 @@ public class QueenBoard{
   private boolean addQueen(int r, int c){
     board[r][c] = -1;//place the Queen down. Queen represented by -1
 
-    //check boxed horizontally to the right
+    //check boxes horizontally to the right
     for(int col = c; col < board[r].length; col++){
       board[r][col] += 1;
     }
 
+    //check boxes diagonally to bottom right
     for(int row1 = r; row1 < board.length; row1++){
       for(int col1 = c; col1 < board[row1].length; col1++){
         board[row1][col1] += 1;
+      }
+    }
+
+    //check boxes diagonally to the upper right
+    for(int row2 = r; row2 > 0; row2--){
+      for(int col2 = c; col2 < board[row2].length; col2++){
+        board[row2][col2] += 1;
       }
     }
     return true;

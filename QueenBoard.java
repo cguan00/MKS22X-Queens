@@ -9,7 +9,7 @@ public class QueenBoard{
   public boolean addQueen(int r, int c){
     board[r][c] = -1;//queen represented by -1
     for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
-      board[r][c + i] += 1;//squares to the right are threatened
+      board[r][c + i] += 1;//squares to the right are threatened, add 1
 
       if (r - i >= 0){//prevent exception, will not go out of bounds
         board[r - i][c + i] += 1;//squares diagonally to the upper left are threatened, add 1
@@ -22,8 +22,19 @@ public class QueenBoard{
     return true;
   }
 
-  private boolean removeQueen(int r, int c){
-    board[r][c] = 0;
+  public boolean removeQueen(int r, int c){
+    board[r][c] = 0;//remove the queen. square is now empty
+    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
+      board[r][c + i] -= 1;//squares to the right are no longer threatened by removed queen, subtract 1
+
+      if (r - i >= 0){//prevent exception, will not go out of bounds
+        board[r - i][c + i] -= 1;//squares diagonally to the upper left are no longer threatened by removed queen, subtract 1
+      }
+
+      if (r + i < board.length){//prevent exception, will not go out of bounds
+        board[r + i][c + i] -= 1;//squares diagonally to the bottom right are no longer threatened by removed queen, substract 1
+      }
+    }
     return true;
   }
 

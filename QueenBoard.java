@@ -134,7 +134,7 @@ public class QueenBoard{
     if(!(isEmpty())){
       throw new IllegalStateException();
     }
-    int count= countHelper(0,0);
+    int count = countHelper(0, 0);//stores how many solutions there are
     clear();//clear board. board is filled with all 0's
     return count;
   }
@@ -146,8 +146,8 @@ public class QueenBoard{
     int count = 0;
     while (r < board.length){
       if(addQueen(r, c)){//if you added a queen
-        count += countHelper(0, c + 1);
-        removeQueen(r,c);//removes queen after recursive call
+        count += countHelper(0, c + 1);//recursive step. moving onto next column
+        removeQueen(r, c);//removes queen after recursive call
       }
       r++;
     }

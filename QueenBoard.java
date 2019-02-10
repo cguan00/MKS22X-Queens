@@ -3,39 +3,24 @@ public class QueenBoard{
 
   public QueenBoard(int size){
     board = new int[size][size];
-    for(int row = 0; row < board.length; row++){
-      for(int col = 0; col < board[row].length; col++){
-        board[row][col] = 0;//fill the board up with 0's because it's empty
-      }
-    }
-    // board[0][0] = -1;//-1 represents the Queen. place Queen in upper left hand box
     addQueen(0,0);
   }
 
   private boolean addQueen(int r, int c){
-    board[r][c] = -1;//place the Queen down. Queen represented by -1
+    board[r][c] = -1;//queen represented by -1
+    for (int i = 1; i < board.length - c; i++){//only need one for loop to loop through the possible moves
+      board[r][c + i] += 1;//squares to the right are threatened
 
-    //check boxes horizontally to the right
-    for(int col = c; col < board[r].length; col++){
-      board[r][col] += 1;
-    }
-
-    //check boxes diagonally to bottom right
-    for(int row1 = r; row1 < board.length; row1++){
-      for(int col1 = c; col1 < board[row1].length; col1++){
-        board[row1][col1] += 1;
+      if (r - i >= 0){//prevent exception, will not go out of bounds
+        board[r - i][c + i] += 1;//squares diagonally to the upper left are threatened, add 1
       }
-    }
 
-    //check boxes diagonally to the upper right
-    for(int row2 = r; row2 > 0; row2--){
-      for(int col2 = c; col2 < board[row2].length; col2++){
-        board[row2][col2] += 1;
+      if (r + i < board.length){//prevent exception, will not go out of bounds
+        board[r + i][c + i] += 1;//squares diagonally to the bottom right are threatened, add 1
       }
     }
     return true;
   }
-
 
   private boolean removeQueen(int r, int c){
     board[r][c] = 0;
@@ -60,15 +45,16 @@ public class QueenBoard{
     String output = "";
     for(int row = 0; row < board.length; row++){
       for(int col = 0; col < board[row].length; col++){
-        if(board[row][col] == 0){
-          output += "_";
-        }
         if(board[row][col] == -1){
           output += "Q";
+        } else{
+          if(board[row][col] > 0){
+            output += board[row][col];
+          }else{
+            output += "_";
+          }
         }
-        if(board[row][col] > 0){
-          output += board[row][col];
-        }
+        // output += board[row][col];
         output += " ";
       }
       output += "\n";

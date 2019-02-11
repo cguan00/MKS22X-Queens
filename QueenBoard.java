@@ -123,6 +123,8 @@ public class QueenBoard{
         removeQueen(row, col);//backtracking: if cannot add to next column, remove queen and try again
       }
     }
+    // System.out.println(Text.go(1,1));
+    // System.out.println(this);Text.wait(50); //adjust this delay
     return false;//board cannot be solved if you looped through every row and it doesn't work
   }
 

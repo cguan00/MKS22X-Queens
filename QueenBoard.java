@@ -106,21 +106,22 @@ public class QueenBoard{
     if(!(isEmpty())){
       throw new IllegalStateException();
     }
-    return solveHelper(0,0);//call helper method
+    // return solveHelper(0,0);//call helper method
+    return solveHelper(0);
   }
 
-  public boolean solveHelper(int r, int c){
-    if (c >= board.length){
+
+  public boolean solveHelper(int col){
+    if (col >= board.length){
       return true;//base case. reached end of board
     }
-    while (r < board.length){//loop through the rows
-      if(addQueen(r,c)){//if queen can be added
-        if(solveHelper(0, c + 1)){
+    for(int row = 0; row < board.length; row++){//loop through the rows
+      if(addQueen(row, col)){//if queen can be added
+        if(solveHelper(col + 1)){
           return true;//try adding to next column
         }
-        removeQueen(r,c);//backtracking: if cannot add to next column, remove queen and try again
+        removeQueen(row, col);//backtracking: if cannot add to next column, remove queen and try again
       }
-      r++;//trying again (trying next row)
     }
     return false;//board cannot be solved if you looped through every row and it doesn't work
   }
@@ -134,22 +135,21 @@ public class QueenBoard{
     if(!(isEmpty())){
       throw new IllegalStateException();
     }
-    int count = countHelper(0, 0);//stores how many solutions there are
+    int count = countHelper(0);//stores how many solutions there are
     clear();//clear board. board is filled with all 0's
     return count;
   }
 
-  public int countHelper(int r, int c){
-    if(c >= board.length){
+  public int countHelper(int col){
+    if(col >= board.length){
       return 1;//made it to end of board. one solution
     }
     int count = 0;
-    while (r < board.length){
-      if(addQueen(r, c)){//if you added a queen
-        count += countHelper(0, c + 1);//recursive step. moving onto next column
-        removeQueen(r, c);//removes queen after recursive call
+    for(int row = 0; row < board.length; row++){//loop through the rows
+      if(addQueen(row, col)){//if you added a queen
+        count += countHelper(col + 1);//recursive step. moving onto next column
+        removeQueen(row, col);//removes queen after recursive call
       }
-      r++;
     }
     return count;//after every position has been tried
   }

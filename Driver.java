@@ -81,6 +81,9 @@ public class Driver{
     System.out.println(board7.countSolutions());//40
     System.out.println(board8.countSolutions());//92
 
+    for(int i = 0; i < 5; i++){
+      QueenBoard.runTest(i);
+    }
 
   }
 }
